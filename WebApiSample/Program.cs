@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Net;
 
 namespace WebapiSample
 {
@@ -33,6 +34,9 @@ namespace WebapiSample
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(options => {
+                    options.Listen(IPAddress.Loopback, 5080); //HTTP port
+                })
                 .UseStartup<Startup>();
     }
 }
